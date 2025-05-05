@@ -1,8 +1,15 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const CTASection = () => {
+  const navigate = useNavigate();
+
+  const handleOrderNow = () => {
+    navigate("/colectii");
+  };
+
   return (
     <section className="py-16 bg-gradient-to-r from-floral-500 to-floral-600 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,7 +21,10 @@ const CTASection = () => {
             Fie că este vorba de o aniversare, o zi specială sau doar dorința de a face pe cineva fericit, suntem aici să te ajutăm cu cele mai frumoase aranjamente florale.
           </p>
           <div className="pt-4">
-            <Button className="text-md rounded-full px-8 py-6 bg-white text-floral-800 hover:bg-white/90">
+            <Button 
+              onClick={handleOrderNow}
+              className="text-md rounded-full px-8 py-6 bg-white text-floral-800 hover:bg-white/90"
+            >
               Comandă Acum <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>

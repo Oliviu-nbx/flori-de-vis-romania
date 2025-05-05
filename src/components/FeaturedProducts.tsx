@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -8,6 +9,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Heart, ShoppingBag } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 interface Product {
   id: number;
@@ -18,6 +20,7 @@ interface Product {
 }
 
 const FeaturedProducts = () => {
+  const { addToCart } = useCart();
   const [products, setProducts] = useState<Product[]>([
     {
       id: 1,
@@ -50,7 +53,7 @@ const FeaturedProducts = () => {
   ]);
 
   const [visibleProducts, setVisibleProducts] = useState<Product[]>([]);
-
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -94,35 +97,42 @@ const FeaturedProducts = () => {
           {visibleProducts.map((product) => (
             <div key={product.id} className="relative">
               <Card className="card-product overflow-hidden border-0 shadow-sm hover:shadow-lg transition-all duration-300">
-                <CardHeader className="p-0">
-                  <div className="relative h-80 overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                    <div className="absolute top-4 right-4">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="rounded-full bg-white/80 backdrop-blur-sm hover:bg-white border-0"
-                      >
-                        <Heart className="h-5 w-5 text-floral-800" />
-                      </Button>
+                <Link to={`/produs/${product.id}`}>
+                  <CardHeader className="p-0">
+                    <div className="relative h-80 overflow-hidden">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                      <div className="absolute top-4 right-4">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="rounded-full bg-white/80 backdrop-blur-sm hover:bg-white border-0"
+                        >
+                          <Heart className="h-5 w-5 text-floral-800" />
+                        </Button>
+                      </div>
+                      <div className="absolute bottom-4 left-4">
+                        <span className="inline-block px-3 py-1 rounded-full bg-white/80 backdrop-blur-sm text-xs font-medium text-floral-800">
+                          {product.category}
+                        </span>
+                      </div>
                     </div>
-                    <div className="absolute bottom-4 left-4">
-                      <span className="inline-block px-3 py-1 rounded-full bg-white/80 backdrop-blur-sm text-xs font-medium text-floral-800">
-                        {product.category}
-                      </span>
-                    </div>
-                  </div>
-                </CardHeader>
+                  </CardHeader>
+                </Link>
                 <CardContent className="p-4">
-                  <h3 className="font-serif text-lg font-medium text-floral-900">{product.name}</h3>
-                  <p className="text-floral-800 font-bold mt-1">{product.price} RON</p>
+                  <Link to={`/produs/${product.id}`}>
+                    <h3 className="font-serif text-lg font-medium text-floral-900">{product.name}</h3>
+                    <p className="text-floral-800 font-bold mt-1">{product.price} RON</p>
+                  </Link>
                 </CardContent>
                 <CardFooter className="px-4 pb-4 pt-0">
-                  <Button className="w-full rounded-full bg-floral-600 hover:bg-floral-700 text-white flex items-center justify-center gap-2">
+                  <Button 
+                    className="w-full rounded-full bg-floral-600 hover:bg-floral-700 text-white flex items-center justify-center gap-2"
+                    onClick={() => addToCart(product)}
+                  >
                     <ShoppingBag className="h-5 w-5" />
                     Adaugă în Coș
                   </Button>
@@ -136,6 +146,7 @@ const FeaturedProducts = () => {
           <Button 
             variant="outline" 
             className="rounded-full px-8 py-6 border-floral-300 text-floral-800 hover:bg-floral-50"
+            onClick={() => window.location.href = '/colectii'}
           >
             Vezi Toate Aranjamentele
           </Button>

@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -15,11 +16,22 @@ const HeroSection = () => {
             Livrare în toată România cu dragoste și grijă.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 opacity-0 animate-fade-in [animation-delay:0.9s]">
-            <Button className="text-md rounded-full px-8 py-6 bg-floral-600 hover:bg-floral-700 text-white">
-              Vezi Colecția <ArrowRight className="ml-2 h-5 w-5" />
+            <Button 
+              className="text-md rounded-full px-8 py-6 bg-floral-600 hover:bg-floral-700 text-white"
+              asChild
+            >
+              <Link to="/colectii">
+                Vezi Colecția <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
-            <Button variant="outline" className="text-md rounded-full px-8 py-6 border-floral-300 text-floral-800 hover:bg-floral-50">
-              Despre Serviciile Noastre
+            <Button 
+              variant="outline" 
+              className="text-md rounded-full px-8 py-6 border-floral-300 text-floral-800 hover:bg-floral-50"
+              asChild
+            >
+              <Link to="/despre">
+                Despre Serviciile Noastre
+              </Link>
             </Button>
           </div>
         </div>
